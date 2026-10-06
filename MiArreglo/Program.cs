@@ -26,8 +26,8 @@ namespace MiArreglo
             Console.WriteLine(miArreglo);
 
 
-            miArreglo.Agregar(-2);
-            miArreglo.Agregar(8);
+      
+        
 
 
 
