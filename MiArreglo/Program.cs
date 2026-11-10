@@ -31,6 +31,12 @@ namespace MiArreglo
             var verPares = miArreglo.ObtenerPares();
             verPares.Ordenar(false);
 
+            Console.WriteLine("\nPares\n");
+            var VerPrimos = miArreglo.ObtenerPrimos();
+            Console.WriteLine(VerPrimos); 
+            Console.WriteLine("\nPares Ordenados\n");
+            VerPrimos.Ordenar();
+            Console.WriteLine(VerPrimos);
            
 
       
