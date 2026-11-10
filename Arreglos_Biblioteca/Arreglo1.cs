@@ -8,8 +8,8 @@ namespace Arreglos_Biblioteca
     public class Arreglo1
     {
         //Atributos o campos
-        private int _tope;
-        private int[] _arreglo;
+        public int _tope;
+        public int[] _arreglo;
         public int num;
 
         //Constructor
@@ -26,6 +26,11 @@ namespace Arreglos_Biblioteca
         public bool EstaVacio => _tope == 0;
 
         //Metodos
+
+        public void Llenar()
+        {
+            Llenar(1, 100);
+        }
         public void Llenar(int minimo, int maximo)
         {
             Random oRandom = new Random();
@@ -34,6 +39,8 @@ namespace Arreglos_Biblioteca
                 _arreglo[i] = oRandom.Next(minimo, maximo);
             }
             _tope = N;
+
+
         }
 
 
@@ -73,7 +80,7 @@ namespace Arreglos_Biblioteca
             }
 
 
-        public void Agregar()
+        public void Agregar(int n)
 {
             if (EstaLleno)
             {
@@ -108,7 +115,28 @@ namespace Arreglos_Biblioteca
 
         }
 
+        public Arreglo1 ObtenerPares()
+        {
+            int contadorpares = 0;
+            for (int i = 0; i < _tope; i++)
+            {
+                if (_arreglo[i] % 2 == 0)
+                {
+                    contadorpares++;
 
+                }
+            }
+
+            var arreglopares = new Arreglo1(contadorpares);
+            for (int i = 0; i < _tope; i++)
+            {
+                if (_arreglo[i] % 2 == 0)
+                {
+                    arreglopares.Agregar(_arreglo[i]);
+                }
+            } return arreglopares;
+        }
+  
         public void Eliminar(int posicion)
         {
             if (EstaVacio)

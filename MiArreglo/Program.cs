@@ -25,6 +25,13 @@ namespace MiArreglo
             miArreglo.Ordenar();
             Console.WriteLine(miArreglo);
 
+            Console.WriteLine("\nArreglo\n");
+            miArreglo.Llenar();
+            Console.WriteLine("\nPares\n");
+            var verPares = miArreglo.ObtenerPares();
+            verPares.Ordenar(false);
+
+           
 
       
         
