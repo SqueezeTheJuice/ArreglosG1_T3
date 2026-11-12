@@ -1,36 +1,32 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Arreglos_Biblioteca
 {
     public class Arreglo1
     {
-        //Atributos o campos
+        // Atributos o campos
         public int _tope;
         public int[] _arreglo;
-        public int num;
 
-        //Constructor
+        // Constructor
         public Arreglo1(int n)
         {
             N = n;
             _arreglo = new int[N];
             _tope = 0;
-       
         }
-        //Propiedades
+
+        // Propiedades
         public int N { get; }
         public bool EstaLleno => _tope == N;
         public bool EstaVacio => _tope == 0;
 
-        //Metodos
-
+        // Métodos
         public void Llenar()
         {
             Llenar(1, 100);
         }
+
         public void Llenar(int minimo, int maximo)
         {
             Random oRandom = new Random();
@@ -39,62 +35,59 @@ namespace Arreglos_Biblioteca
                 _arreglo[i] = oRandom.Next(minimo, maximo);
             }
             _tope = N;
-
-
         }
-
-
-
 
         public void Ordenar()
         {
             Ordenar(true);
         }
 
-
         public void Ordenar(bool ascendente)
         {
             for (int i = 0; i < _tope - 1; i++)
             {
-                for (int j = i +1;j < _tope; j++)
+                for (int j = i + 1; j < _tope; j++)
                 {
                     if (ascendente)
                     {
-
-                    }
-                    if (_arreglo[i] > _arreglo[j])
+                        if (_arreglo[i] > _arreglo[j])
                         {
-                         Cambiar(ref _arreglo[i], ref _arreglo[j]);
+                            Cambiar(ref _arreglo[i], ref _arreglo[j]);
                         }
-                    
+                    }
+                    else
+                    {
+                        if (_arreglo[i] < _arreglo[j])
+                        {
+                            Cambiar(ref _arreglo[i], ref _arreglo[j]);
+                        }
+                    }
                 }
             }
         }
 
-
         public void Cambiar(ref int a, ref int b)
-            {
-                int aux = a;
-                a = b;
-                b = aux;
-            }
-
+        {
+            int aux = a;
+            a = b;
+            b = aux;
+        }
 
         public void Agregar(int n)
-{
+        {
             if (EstaLleno)
             {
                 throw new Exception("El arreglo está lleno");
             }
-                _tope = num;
-                _tope++;
-            }
-        //Metodo insertar 
+            _arreglo[_tope] = n;
+            _tope++;
+        }
+
         public void Insertar(int num, int posicion)
         {
             if (EstaLleno)
             {
-                throw new Exception("El arreglo esta lleno");
+                throw new Exception("El arreglo está lleno");
             }
             if (posicion < 0)
             {
@@ -105,124 +98,124 @@ namespace Arreglos_Biblioteca
                 posicion = _tope;
             }
 
-            for (int i = _tope; i > posicion; i++)
+            // Corregido: i-- y _arreglo[i - 1]
+            for (int i = _tope; i > posicion; i--)
             {
                 _arreglo[i] = _arreglo[i - 1];
-
             }
             _arreglo[posicion] = num;
             _tope++;
-
         }
 
         public Arreglo1 ObtenerPares()
         {
-            int contadorpares = 0;
+            int contadorPares = 0;
             for (int i = 0; i < _tope; i++)
             {
-                if (_arreglo[i] % 2 == 0)
+                if (EsPar(_arreglo[i]))
                 {
-                    contadorpares++;
-
+                    contadorPares++;
                 }
             }
 
-            var arreglopares = new Arreglo1(contadorpares);
+            var arregloPares = new Arreglo1(contadorPares);
             for (int i = 0; i < _tope; i++)
             {
-                if (_arreglo[i] % 2 == 0)
+                if (EsPar(_arreglo[i]))
                 {
-                    arreglopares.Agregar(_arreglo[i]);
+                    arregloPares.Agregar(_arreglo[i]);
                 }
-            } return arreglopares;
+            }
+            return arregloPares;
+        }
+
+        private bool EsPar(int n)
+        {
+            return n % 2 == 0;
         }
 
         public Arreglo1 ObtenerPrimos()
         {
-            int contadorprimos = 0;
+            int contadorPrimos = 0;
+            // Primer ciclo cerrado correctamente antes de crear el nuevo arreglo
             for (int i = 0; i < _tope; i++)
             {
-                if (_arreglo[i] == 1) { continue; }
                 if (EsPrimo(_arreglo[i]))
                 {
-                    contadorprimos++;
+                    contadorPrimos++;
                 }
-                var arregloPrimos = new Arreglo1(contadorprimos);
-
-                for (int i = 0; i < _tope; i++)
-                {
-                    if (EsPrimo(_arreglo[i]))
-                    {
-                        arregloPrimos.Agregar(_arreglo[i]);
-                    }
-                }
-                return arregloPrimos;
             }
-        }
 
+            var arregloPrimos = new Arreglo1(contadorPrimos);
+            for (int i = 0; i < _tope; i++)
+            {
+                if (EsPrimo(_arreglo[i]))
+                {
+                    arregloPrimos.Agregar(_arreglo[i]);
+                }
+            }
+            return arregloPrimos;
+        }
 
         private bool EsPrimo(int n)
         {
-            for (int i = 2; i < n; i ++)
+            if (n <= 1) return false;
+
+            for (int i = 2; i < n; i++)
             {
                 if (n % i == 0)
                 {
                     return false;
                 }
-                
             }
             return true;
         }
-  
+
         public void Eliminar(int posicion)
         {
             if (EstaVacio)
             {
-                throw new Exception("El arreglo esta vacio");
+                throw new Exception("El arreglo está vacío");
             }
-
             if (posicion < 0)
             {
                 posicion = 0;
             }
-            if (posicion > _tope)
+            if (posicion >= _tope)
             {
-                posicion = _tope;
+                posicion = _tope - 1;
             }
-            for (int  i = posicion; i < _tope-1; i++){
+
+            for (int i = posicion; i < _tope - 1; i++)
+            {
                 _arreglo[i] = _arreglo[i + 1];
             }
+            _tope--;
         }
 
-
-        //Metodo ToString
+        // Método ToString
         public override string ToString()
         {
             if (EstaVacio)
             {
-                return "Esta vacio";
+                return "Está vacío";
             }
 
             string cadena = string.Empty;
             int contador = 0;
-            for (int i = 0; i < _tope - 1; i++)
+
+            // Corregido: i < _tope (sin el - 1) para incluir el último elemento
+            for (int i = 0; i < _tope; i++)
             {
-                cadena = cadena + _arreglo[i];
-                cadena += $"{_arreglo[i]}\t ";
+                cadena += $"{_arreglo[i]}\t";
                 contador++;
                 if (contador > 9)
                 {
                     cadena += "\n";
-                    contador = 0; 
+                    contador = 0;
                 }
-
             }
             return cadena;
-
-
-          
         }
     }
 }
-    
-

@@ -30,17 +30,23 @@ namespace MiArreglo
             Console.WriteLine("\nPares\n");
             var verPares = miArreglo.ObtenerPares();
             verPares.Ordenar(false);
+            Console.WriteLine(verPares);
 
-            Console.WriteLine("\nPares\n");
+            Console.WriteLine("\nPrimos\n");
             var VerPrimos = miArreglo.ObtenerPrimos();
             Console.WriteLine(VerPrimos); 
             Console.WriteLine("\nPares Ordenados\n");
             VerPrimos.Ordenar();
             Console.WriteLine(VerPrimos);
-           
 
-      
-        
+            Console.WriteLine($"\nTiempo transcurrido\n");
+            var tiempo1 = DateTime.Now;
+            miArreglo.Llenar(1,9999);
+            var tiempo2 = DateTime.Now;
+            var RestarTiempo = tiempo2 - tiempo1;
+            Console.WriteLine($"Tiempo transcurrido: {RestarTiempo.TotalMilliseconds} ms");
+
+
 
 
 
